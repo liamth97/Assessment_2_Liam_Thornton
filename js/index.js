@@ -7,9 +7,9 @@ window.addEventListener('load', getBoredAPI);
 // Gets more suggestions when the button is clicked
 boredBtn.addEventListener('click', getBoredAPI);
 
-//* Get's API response and converts it to JSON
+// Get's API response and converts it to JSON
 async function getBoredAPI() {
-	// Sets button to generate new cards to hidden
+	// Hides button
 	boredBtn.style.visibility = 'hidden';
 
 	// Resets page to blank so new suggestions can be filled in
@@ -21,10 +21,15 @@ async function getBoredAPI() {
 		const data = await response.json();
 		console.log(data);
 		createSuggestionCards(data);
+
+		// shows button again after 5 seconds
+		setTimeout(() => {
+			boredBtn.style.visibility = 'visible';
+		}, 5000);
 	}
 }
 
-//* Function to create a suggestion card
+// Function to create a suggestion card
 function createSuggestionCards(data) {
 	// Get suggestions ID
 	const suggestions = document.getElementById('suggestions');
@@ -50,6 +55,11 @@ function createSuggestionCards(data) {
 	cardBody.classList.add('card-body', 'p-5');
 	card.appendChild(cardBody);
 
+	cardBadge(cardBody, data);
+}
+
+// Adds a badge to the card
+function cardBadge(cardBody, data) {
 	// Creates badges for each activity type
 	let cardType = document.createElement('p');
 	let cardTypeNode = document.createTextNode(
@@ -92,15 +102,15 @@ function createSuggestionCards(data) {
 		cardType.appendChild(cardTypeNode);
 		cardBody.appendChild(cardType);
 	}
+	cardTitle(cardBody, data);
+}
 
+// Creates a card title
+function cardTitle(cardBody, data) {
 	// Create card title
 	const cardTitle = document.createElement('h5');
 	const cardTitleNode = document.createTextNode(data.activity);
 	cardTitle.classList.add('card-title', 'h3');
 	cardTitle.appendChild(cardTitleNode);
 	cardBody.appendChild(cardTitle);
-
-	setTimeout(() => {
-		boredBtn.style.visibility = 'visible';
-	}, 5000);
 }
