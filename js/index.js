@@ -20,12 +20,12 @@ async function getBoredAPI() {
 		const response = await fetch('http://www.boredapi.com/api/activity/');
 		const data = await response.json();
 		console.log(data);
-		createSuggestionCard(data);
+		createSuggestionCards(data);
 	}
 }
 
 //* Function to create a suggestion card
-function createSuggestionCard(data) {
+function createSuggestionCards(data) {
 	// Get suggestions ID
 	const suggestions = document.getElementById('suggestions');
 
@@ -41,15 +41,7 @@ function createSuggestionCard(data) {
 
 	// Creates div with "card" class
 	const card = document.createElement('div');
-	card.classList.add(
-		'card',
-		'border-dark',
-		'bg-dark',
-		'shadow',
-		'text-light',
-		'w-100',
-		'h-100'
-	);
+	card.classList.add('card', 'border-dark', 'w-100', 'h-100', 'shadow');
 	card.setAttribute('id', 'suggestionCard');
 	col.appendChild(card);
 
@@ -58,6 +50,49 @@ function createSuggestionCard(data) {
 	cardBody.classList.add('card-body', 'p-5');
 	card.appendChild(cardBody);
 
+	// Creates badges for each activity type
+	let cardType = document.createElement('p');
+	let cardTypeNode = document.createTextNode(
+		data.type[0].toUpperCase() + data.type.substring(1)
+	);
+	if (data.type == 'recreational') {
+		cardType.classList.add('badge', 'rounded-pill', 'bg-warning', 'text-dark');
+		cardType.appendChild(cardTypeNode);
+		cardBody.appendChild(cardType);
+	} else if (data.type == 'relaxation') {
+		cardType.classList.add('badge', 'rounded-pill', 'bg-primary');
+		cardType.appendChild(cardTypeNode);
+		cardBody.appendChild(cardType);
+	} else if (data.type == 'education') {
+		cardType.classList.add('badge', 'rounded-pill', 'bg-success');
+		cardType.appendChild(cardTypeNode);
+		cardBody.appendChild(cardType);
+	} else if (data.type == 'busywork') {
+		cardType.classList.add('badge', 'rounded-pill', 'bg-light', 'text-dark');
+		cardType.appendChild(cardTypeNode);
+		cardBody.appendChild(cardType);
+	} else if (data.type == 'social') {
+		cardType.classList.add('badge', 'rounded-pill', 'bg-info', 'text-dark');
+		cardType.appendChild(cardTypeNode);
+		cardBody.appendChild(cardType);
+	} else if (data.type == 'charity') {
+		cardType.classList.add('badge', 'rounded-pill', 'bg-dark');
+		cardType.appendChild(cardTypeNode);
+		cardBody.appendChild(cardType);
+	} else if (data.type == 'cooking') {
+		cardType.classList.add('badge', 'rounded-pill', 'bg-danger');
+		cardType.appendChild(cardTypeNode);
+		cardBody.appendChild(cardType);
+	} else if (data.type == 'music') {
+		cardType.classList.add('badge', 'rounded-pill', 'bg-secondary');
+		cardType.appendChild(cardTypeNode);
+		cardBody.appendChild(cardType);
+	} else if (data.type == 'diy') {
+		cardType.classList.add('badge', 'rounded-pill', 'bg-light', 'text-dark');
+		cardType.appendChild(cardTypeNode);
+		cardBody.appendChild(cardType);
+	}
+
 	// Create card title
 	const cardTitle = document.createElement('h5');
 	const cardTitleNode = document.createTextNode(data.activity);
@@ -65,31 +100,7 @@ function createSuggestionCard(data) {
 	cardTitle.appendChild(cardTitleNode);
 	cardBody.appendChild(cardTitle);
 
-	// Create card text
-	// type
-	let cardText = document.createElement('p');
-	let cardTextNode = document.createTextNode(
-		data.type[0].toUpperCase() + data.type.substring(1)
-	);
-	cardText.classList.add('card-text', 'lead');
-	cardText.appendChild(cardTextNode);
-	cardBody.appendChild(cardText);
-	// participants
-	cardText = document.createElement('p');
-	cardTextNode = document.createTextNode(
-		'This activity requires ' + data.participants + ' participants'
-	);
-	cardText.classList.add('card-text');
-	cardText.appendChild(cardTextNode);
-	cardBody.appendChild(cardText);
-	// price
-	cardText = document.createElement('p');
-	cardTextNode = document.createTextNode('Price: ' + data.price);
-	cardText.classList.add('card-text');
-	cardText.appendChild(cardTextNode);
-	cardBody.appendChild(cardText);
-
 	setTimeout(() => {
 		boredBtn.style.visibility = 'visible';
-	}, 2000);
+	}, 5000);
 }
