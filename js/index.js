@@ -1,5 +1,5 @@
 // Imports the anime.js modules
-import anime from '/node_modules/animejs/lib/anime.es.js';
+import anime from 'node_modules/animejs/lib/anime.es.js';
 const anime = require('animejs');
 
 // Get btn by ID
@@ -118,11 +118,3 @@ function cardTitle(cardBody, data) {
 	cardTitle.appendChild(cardTitleNode);
 	cardBody.appendChild(cardTitle);
 }
-
-anime({
-	targets: 'div',
-	translateX: 250,
-	rotate: '1turn',
-	backgroundColor: '#FFF',
-	duration: 800,
-});
