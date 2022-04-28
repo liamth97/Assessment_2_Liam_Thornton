@@ -1,3 +1,7 @@
+// Imports the anime.js modules
+import anime from '/node_modules/animejs/lib/anime.es.js';
+const anime = require('animejs');
+
 // Get btn by ID
 const boredBtn = document.getElementById('boredBtn');
 
@@ -46,7 +50,7 @@ function createSuggestionCards(data) {
 
 	// Creates div with "card" class
 	const card = document.createElement('div');
-	card.classList.add('card', 'border-dark', 'w-100', 'h-100', 'shadow');
+	card.classList.add('card', 'border-dark', 'w-100', 'h-100');
 	card.setAttribute('id', 'suggestionCard');
 	col.appendChild(card);
 
@@ -114,3 +118,11 @@ function cardTitle(cardBody, data) {
 	cardTitle.appendChild(cardTitleNode);
 	cardBody.appendChild(cardTitle);
 }
+
+anime({
+	targets: 'div',
+	translateX: 250,
+	rotate: '1turn',
+	backgroundColor: '#FFF',
+	duration: 800,
+});

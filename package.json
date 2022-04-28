@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/liamth97/Assessment_2_Liam_Thornton#readme",
   "dependencies": {
+    "animejs": "^3.2.1",
     "bootstrap": "^5.1.3"
   }
 }
