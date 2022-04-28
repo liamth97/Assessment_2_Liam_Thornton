@@ -1,7 +1,3 @@
-// Imports the anime.js modules
-import anime from 'node_modules/animejs/lib/anime.es.js';
-const anime = require('animejs');
-
 // Get btn by ID
 const boredBtn = document.getElementById('boredBtn');
 
@@ -23,7 +19,6 @@ async function getBoredAPI() {
 	for (let index = 0; index < 20; index++) {
 		const response = await fetch('http://www.boredapi.com/api/activity/');
 		const data = await response.json();
-		console.log(data);
 		createSuggestionCards(data);
 
 		// shows button again after 5 seconds
@@ -118,3 +113,23 @@ function cardTitle(cardBody, data) {
 	cardTitle.appendChild(cardTitleNode);
 	cardBody.appendChild(cardTitle);
 }
+
+// Hover over card animations
+
+const cardHover = document.querySelector('.card');
+
+const hoverCardAnimation = () => {
+	anime({
+		targets: cardHover,
+		width: '100%',
+		scale: {
+			delay: 800,
+			value: 1.5,
+		},
+		duration: 1500,
+	});
+};
+
+console.log(cardHover);
+
+cardHover.addEventListener('mouseover', hoverCardAnimation);
