@@ -1,6 +1,6 @@
 // Get btn by ID
-var boredBtn = document.getElementById('boredBtn');
-var numCards = 20;
+const boredBtn = document.getElementById('boredBtn');
+const numCards = 20;
 
 getBoredAPI();
 
@@ -9,48 +9,41 @@ boredBtn.addEventListener('click', getBoredAPI);
 
 // Get's API response and converts it to JSON
 async function getBoredAPI() {
-	// Hides button
-	boredBtn.style.visibility = 'hidden';
+	boredBtn.style.visibility = 'hidden'; // Hides button
 
-	// Resets page to blank so new suggestions can be filled in
-	suggestions.innerHTML = ' ';
+	suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
 
 	// For loop that gets new request to generate new items
-
 	for (let index = 0; index < numCards; index++) {
-		var response = await fetch('http://www.boredapi.com/api/activity/');
-		var data = await response.json();
-		var cardBody = createSuggestionCards(index);
-		cardBadge(data, cardBody);
-		cardTitle(data, cardBody);
+		const response = await fetch('http://www.boredapi.com/api/activity/');
+		const data = await response.json();
+		const cardBody = createSuggestionCards(index); // Stores createSuggestionCards(index) as a variable to pass it's data into other functions
+		cardBadge(data, cardBody); // Creates the colored badges
+		cardTitle(data, cardBody); //
+		hoverCardLoop(index);
 		// Shows button again after 5 seconds
 		setTimeout(() => {
 			boredBtn.style.visibility = 'visible';
 		}, 5000);
 	}
-	var hoverCard = [];
-	for (let index = 0; index < numCards; index++) {
-		hoverCard[index] = document.getElementById(String(index));
-	}
-	return hoverCard;
 }
 
 // Function to create a suggestion card
 function createSuggestionCards(index) {
 	// Get suggestions ID
-	var suggestions = document.getElementById('suggestions');
+	const suggestions = document.getElementById('suggestions');
 
 	// Create cards with new suggestions
 	//! Bootstrap classes are used
 
 	// Creates div with "col" class
-	var col = document.createElement('div');
+	const col = document.createElement('div');
 	col.classList.add('col-sm-12', 'col-lg-6');
 	col.setAttribute('data-aos', 'fade-right');
 	suggestions.appendChild(col);
 
 	// Creates div with "card" class
-	var card = document.createElement('div');
+	const card = document.createElement('div');
 	card.classList.add('card', 'border-dark', 'w-100', 'h-100');
 	card.setAttribute('id', String(index));
 	// card.setAttribute('id', 'suggestionCard');
@@ -58,7 +51,7 @@ function createSuggestionCards(index) {
 	// console.log(card);
 
 	// Create card body
-	var cardBody = document.createElement('div');
+	const cardBody = document.createElement('div');
 	cardBody.classList.add('card-body', 'p-5');
 	card.appendChild(cardBody);
 
@@ -68,8 +61,8 @@ function createSuggestionCards(index) {
 // Adds a badge to the card
 function cardBadge(data, cardBody) {
 	// Creates badges for each activity type
-	var cardType = document.createElement('p');
-	var cardTypeNode = document.createTextNode(
+	const cardType = document.createElement('p');
+	const cardTypeNode = document.createTextNode(
 		data.type[0].toUpperCase() + data.type.substring(1)
 	);
 	if (data.type == 'recreational') {
@@ -114,19 +107,23 @@ function cardBadge(data, cardBody) {
 // Creates a card title
 function cardTitle(data, cardBody) {
 	// Create card title
-	var cardTitle = document.createElement('h5');
-	var cardTitleNode = document.createTextNode(data.activity);
+	const cardTitle = document.createElement('h5');
+	const cardTitleNode = document.createTextNode(data.activity);
 	cardTitle.classList.add('card-title', 'h3');
 	cardTitle.appendChild(cardTitleNode);
 	cardBody.appendChild(cardTitle);
 }
 
-// console.log(card.getAttribute('id'));
-
-// Adds animations to the cards using Anime.JS
-
-for (let index = 0; index < numCards; index++) {
-	console.log(document.getElementById(String(index)));
+function hoverCardLoop(index) {
+	const hoverCard = [];
+	hoverCard[index] = document.getElementById(String(index));
+	hoverCard[index].addEventListener('mouseenter', function (e) {
+		enterCard(e.target);
+	});
+	hoverCard[index].addEventListener('mouseleave', function (e) {
+		leaveCard(e.target);
+	});
+	console.log(hoverCard);
 }
 
 function animateCard(el, scale, duration, elasticity) {
@@ -145,13 +142,4 @@ function enterCard(el) {
 
 function leaveCard(el) {
 	animateCard(el, 1.0, 600, 300);
-}
-
-for (let index = 0; index < numCards; index++) {
-	hoverCard[index].addEventListener('mouseenter', function (e) {
-		enterCard(e.target);
-	});
-	hoverCard[index].addEventListener('mouseleave', function (e) {
-		leaveCard(e.target);
-	});
 }
