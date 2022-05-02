@@ -40,14 +40,16 @@ function createSuggestionCards(data) {
 	const col = document.createElement('div');
 	col.classList.add('col-sm-12', 'col-lg-6');
 	col.setAttribute('data-aos', 'fade-right');
-	col.setAttribute('data-aos', 'fade-right');
 	suggestions.appendChild(col);
 
 	// Creates div with "card" class
+
 	const card = document.createElement('div');
 	card.classList.add('card', 'border-dark', 'w-100', 'h-100');
+	// card.setAttribute('id', String(Math.floor(Math.random() * 100 + 1)));
 	card.setAttribute('id', 'suggestionCard');
 	col.appendChild(card);
+	console.log(card);
 
 	// Create card body
 	const cardBody = document.createElement('div');
@@ -112,24 +114,33 @@ function cardTitle(cardBody, data) {
 	cardTitle.classList.add('card-title', 'h3');
 	cardTitle.appendChild(cardTitleNode);
 	cardBody.appendChild(cardTitle);
+
+	// // Adds animations to the cards using Anime.JS
+	// const hoverCard = document.getElementById('suggestionCard');
+
+	// function animateCard(el, scale, duration, elasticity) {
+	// 	anime.remove(el);
+	// 	anime({
+	// 		targets: el,
+	// 		scale: scale,
+	// 		duration: duration,
+	// 		elasticity: elasticity,
+	// 	});
+	// }
+
+	// function enterCard(el) {
+	// 	animateCard(el, 1.1, 800, 400);
+	// }
+
+	// function leaveCard(el) {
+	// 	animateCard(el, 1.0, 600, 300);
+	// }
+
+	// hoverCard.addEventListener('mouseenter', function (e) {
+	// 	enterCard(e.target);
+	// });
+
+	// hoverCard.addEventListener('mouseleave', function (e) {
+	// 	leaveCard(e.target);
+	// });
 }
-
-// Hover over card animations
-
-const cardHover = document.querySelector('.card');
-
-const hoverCardAnimation = () => {
-	anime({
-		targets: cardHover,
-		width: '100%',
-		scale: {
-			delay: 800,
-			value: 1.5,
-		},
-		duration: 1500,
-	});
-};
-
-console.log(cardHover);
-
-cardHover.addEventListener('mouseover', hoverCardAnimation);
