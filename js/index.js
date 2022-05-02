@@ -29,6 +29,7 @@ async function getBoredAPI() {
 }
 
 // Function to create a suggestion card
+// This loops as it is tied to the for loop in the async GetBoredAPI() function
 function createSuggestionCards(index) {
 	// Get suggestions ID
 	const suggestions = document.getElementById('suggestions');
@@ -59,6 +60,7 @@ function createSuggestionCards(index) {
 }
 
 // Adds a badge to the card
+// This loops as it is tied to the for loop in the async GetBoredAPI() function
 function cardBadge(data, cardBody) {
 	// Creates badges for each activity type
 	const cardType = document.createElement('p');
@@ -105,6 +107,8 @@ function cardBadge(data, cardBody) {
 }
 
 // Creates a card title
+// This loops as it is tied to the for loop in the async GetBoredAPI() function
+
 function cardTitle(data, cardBody) {
 	// Create card title
 	const cardTitle = document.createElement('h5');
@@ -114,6 +118,8 @@ function cardTitle(data, cardBody) {
 	cardBody.appendChild(cardTitle);
 }
 
+// creates an array for all the cards with unique IDs to apply a hover animation to each one
+// This loops as it is tied to the for loop in the async GetBoredAPI() function
 function hoverCardLoop(index) {
 	const hoverCard = [];
 	hoverCard[index] = document.getElementById(String(index));
@@ -123,7 +129,6 @@ function hoverCardLoop(index) {
 	hoverCard[index].addEventListener('mouseleave', function (e) {
 		leaveCard(e.target);
 	});
-	console.log(hoverCard);
 }
 
 function animateCard(el, scale, duration, elasticity) {
