@@ -1,30 +1,51 @@
 // Get btn by ID
 const boredBtn = document.getElementById('boredBtn');
-const numCards = 20;
+const numCards = document.getElementById('inputSuggestions');
 
-getBoredAPI();
+const baseURL = 'http://www.boredapi.com/api/activity/';
+const categories = document.getElementById('inputCategory');
+
+// getBoredAPI();
 
 // Gets more suggestions when the button is clicked
-boredBtn.addEventListener('click', getBoredAPI);
+boredBtn.addEventListener('click', (event) => {
+	getBoredAPI(categories.value);
+});
 
 // Get's API response and converts it to JSON
-async function getBoredAPI() {
-	boredBtn.style.visibility = 'hidden'; // Hides button
+async function getBoredAPI(type) {
+	try {
+		// Converts category to lower case, allows user to select 'random' as an option
+		type = type.toLowerCase();
+		if (type == 'random') {
+			type = '';
+		}
 
-	suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
+		if (numCards.value == 'Choose...') {
+			alert(
+				'There was an error! Make sure you select a category and the number of suggestions you want!'
+			);
+			suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
+			boredBtn.style.visibility = 'visible'; // Hides button
+		}
 
-	// For loop that gets new request to generate new items
-	for (let index = 0; index < numCards; index++) {
-		const response = await fetch('http://www.boredapi.com/api/activity/');
-		const data = await response.json();
-		const cardBody = createSuggestionCards(index); // Stores createSuggestionCards(index) as a variable to pass it's data into other functions
-		cardBadge(data, cardBody); // Creates the colored badges
-		cardTitle(data, cardBody); //
-		hoverCardLoop(index);
-		// Shows button again after 5 seconds
-		setTimeout(() => {
-			boredBtn.style.visibility = 'visible';
-		}, 5000);
+		suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
+
+		// For loop that gets new request to generate new items
+		for (let index = 0; index < numCards.value; index++) {
+			const response = await fetch(`${baseURL}?type=${type}`);
+			const data = await response.json();
+			const cardBody = createSuggestionCards(index); // Stores createSuggestionCards(index) as a variable to pass it's data into other functions
+			cardBadge(data, cardBody); // Creates the colored badges
+			cardTitle(data, cardBody); //
+			hoverCardLoop(index);
+		}
+	} catch (e) {
+		alert(
+			'There was an error! Make sure you select  a category and the number of suggestions you want!'
+		);
+		suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
+		boredBtn.style.visibility = 'visible'; // Hides button
 	}
 }
 
@@ -147,4 +168,32 @@ function enterCard(el) {
 
 function leaveCard(el) {
 	animateCard(el, 1.0, 600, 300);
+}
+
+// Return to top button
+
+//Get the button
+let mybutton = document.getElementById('btn-back-to-top');
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+	scrollFunction();
+};
+
+function scrollFunction() {
+	if (
+		document.body.scrollTop > 100 ||
+		document.documentElement.scrollTop > 100
+	) {
+		mybutton.style.display = 'block';
+	} else {
+		mybutton.style.display = 'none';
+	}
+}
+// When the user clicks on the button, scroll to the top of the document
+mybutton.addEventListener('click', backToTop);
+
+function backToTop() {
+	document.body.scrollTop = 0;
+	document.documentElement.scrollTop = 0;
 }

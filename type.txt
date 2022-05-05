@@ -6,3 +6,4 @@ relaxation
 charity
 cooking
 music
+diy
