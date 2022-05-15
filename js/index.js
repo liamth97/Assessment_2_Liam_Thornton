@@ -22,11 +22,12 @@ async function getBoredAPI(type) {
 		}
 
 		if (numCards.value == 'Choose...') {
-			alert(
-				'There was an error! Make sure you select a category and the number of suggestions you want!'
-			);
+			numCards.setCustomValidity('Please choose a category.');
+			numCards.reportValidity();
 			suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
 			boredBtn.style.visibility = 'visible'; // Hides button
+		} else {
+			categories.setCustomValidity('');
 		}
 
 		suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
@@ -43,11 +44,17 @@ async function getBoredAPI(type) {
 		}
 	} catch (e) {
 		console.log(e);
-		alert(
-			'There was an error! Make sure you select  a category and the number of suggestions you want!'
+		console.log(
+			"Most likely error: category wasn't chosen. API fetch request probably failed as a result."
 		);
-		suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
-		boredBtn.style.visibility = 'visible'; // Hides button
+		if (categories.value == 'Choose...') {
+			categories.setCustomValidity('Please choose a category.');
+			categories.reportValidity();
+			suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
+			boredBtn.style.visibility = 'visible'; // Hides button
+		} else {
+			categories.setCustomValidity('');
+		}
 	}
 }
 
@@ -140,11 +147,6 @@ function cardTitle(data, cardBody) {
 	cardTitle.appendChild(cardTitleNode);
 	cardBody.appendChild(cardTitle);
 }
-
-//! function cardParticipants
-//! if statement:
-//! if data.participants equals 1, 2, 3 etc then append fontawesome i tag to cardBody
-//! else if statement to create 1, 2, 3, 4, 5+
 
 function cardParticipants(data, cardBody) {
 	// Creates a div inside the cardBody to put the participant icons in
