@@ -37,10 +37,12 @@ async function getBoredAPI(type) {
 			const data = await response.json();
 			const cardBody = createSuggestionCards(index); // Stores createSuggestionCards(index) as a variable to pass it's data into other functions
 			cardBadge(data, cardBody); // Creates the colored badges
-			cardTitle(data, cardBody); //
+			cardTitle(data, cardBody); // Creates the title description
+			cardParticipants(data, cardBody); // Creates icons of people to represent the amount of participants
 			hoverCardLoop(index);
 		}
 	} catch (e) {
+		console.log(e);
 		alert(
 			'There was an error! Make sure you select  a category and the number of suggestions you want!'
 		);
@@ -137,6 +139,95 @@ function cardTitle(data, cardBody) {
 	cardTitle.classList.add('card-title', 'h3');
 	cardTitle.appendChild(cardTitleNode);
 	cardBody.appendChild(cardTitle);
+}
+
+//! function cardParticipants
+//! if statement:
+//! if data.participants equals 1, 2, 3 etc then append fontawesome i tag to cardBody
+//! else if statement to create 1, 2, 3, 4, 5+
+
+function cardParticipants(data, cardBody) {
+	// Creates a div inside the cardBody to put the participant icons in
+	const personContainer = document.createElement('div');
+	personContainer.classList.add(
+		'd-flex',
+		'justify-content-center',
+		'text-center'
+	);
+	cardBody.appendChild(personContainer);
+
+	// Creates participant icons
+	// Primary icon for amount
+	const personSolidOne = document.createElement('i');
+	personSolidOne.classList.add(
+		'text-primary',
+		'fa-solid',
+		'fa-person',
+		'fa-2x'
+	);
+	let personSolidTwo = personSolidOne.cloneNode(true);
+	let personSolidThree = personSolidOne.cloneNode(true);
+	let personSolidFour = personSolidOne.cloneNode(true);
+	let personSolidFive = personSolidOne.cloneNode(true);
+
+	// Secondary icon for placeholder max amount
+	const personBlankOne = document.createElement('i');
+	personBlankOne.classList.add(
+		'text-secondary',
+		'fa-solid',
+		'fa-person',
+		'fa-2x'
+	);
+	let personBlankTwo = personBlankOne.cloneNode(true);
+	let personBlankThree = personBlankOne.cloneNode(true);
+	let personBlankFour = personBlankOne.cloneNode(true);
+
+	// Adds a plus if it's more than 5 people
+	// For primary
+	const peoplePlusSolid = document.createElement('i');
+	peoplePlusSolid.classList.add('text-primary', 'fa-solid', 'fa-plus');
+	// For secondary
+	const peoplePlusBlank = document.createElement('i');
+	peoplePlusBlank.classList.add('text-secondary', 'fa-solid', 'fa-plus');
+
+	// if statement that appends the appropriate icons based on the amount of participants
+	if (data.participants == 1) {
+		personContainer.appendChild(personSolidOne);
+		personContainer.appendChild(personBlankOne);
+		personContainer.appendChild(personBlankTwo);
+		personContainer.appendChild(personBlankThree);
+		personContainer.appendChild(personBlankFour);
+		personContainer.appendChild(peoplePlusBlank);
+	} else if (data.participants == 2) {
+		personContainer.appendChild(personSolidOne);
+		personContainer.appendChild(personSolidTwo);
+		personContainer.appendChild(personBlankOne);
+		personContainer.appendChild(personBlankTwo);
+		personContainer.appendChild(personBlankThree);
+		personContainer.appendChild(peoplePlusBlank);
+	} else if (data.participants == 3) {
+		personContainer.appendChild(personSolidOne);
+		personContainer.appendChild(personSolidTwo);
+		personContainer.appendChild(personSolidThree);
+		personContainer.appendChild(personBlankOne);
+		personContainer.appendChild(personBlankTwo);
+		personContainer.appendChild(peoplePlusBlank);
+	} else if (data.participants == 4) {
+		personContainer.appendChild(personSolidOne);
+		personContainer.appendChild(personSolidTwo);
+		personContainer.appendChild(personSolidThree);
+		personContainer.appendChild(personSolidFour);
+		personContainer.appendChild(personBlankOne);
+		personContainer.appendChild(peoplePlusBlank);
+	} else {
+		personContainer.appendChild(personSolidOne);
+		personContainer.appendChild(personSolidTwo);
+		personContainer.appendChild(personSolidThree);
+		personContainer.appendChild(personSolidFour);
+		personContainer.appendChild(personSolidFive);
+		personContainer.appendChild(peoplePlusSolid);
+	}
+	console.log(data);
 }
 
 // creates an array for all the cards with unique IDs to apply a hover animation to each one
