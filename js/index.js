@@ -21,6 +21,7 @@ async function getBoredAPI(type) {
 			type = '';
 		}
 
+		// Validates whether an amount of cards has been chosen
 		if (numCards.value == 'Choose...') {
 			numCards.setCustomValidity('Please choose a category.');
 			numCards.reportValidity();
@@ -47,6 +48,8 @@ async function getBoredAPI(type) {
 		console.log(
 			"Most likely error: category wasn't chosen. API fetch request probably failed as a result."
 		);
+
+		// Validates whether a category has been chosen
 		if (categories.value == 'Choose...') {
 			categories.setCustomValidity('Please choose a category.');
 			categories.reportValidity();
