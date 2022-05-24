@@ -23,7 +23,9 @@ async function getBoredAPI(type) {
 
 		// Validates whether an amount of cards has been chosen
 		if (numCards.value == 'Choose...') {
-			numCards.setCustomValidity('Please choose a category.');
+			numCards.setCustomValidity(
+				'Please choose how many suggestions you would like.'
+			);
 			numCards.reportValidity();
 			suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
 			boredBtn.style.visibility = 'visible'; // Hides button
