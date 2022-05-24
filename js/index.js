@@ -1,3 +1,10 @@
+//! This script pulls data from an API and displays it to the user
+//! The API used is the BoredAPI
+//! This file grabs the data and displays them in a Bootstrap card layout
+//! Bootstrap attributes have been used for the creation and grouping of the cards
+//! the animate-on-scroll library has been used for the fade in animation when the cards are created
+//! the anime.js library has been used for the hover animations of the cards
+
 // Get btn by ID
 const boredBtn = document.getElementById('boredBtn');
 const numCards = document.getElementById('inputSuggestions');
@@ -5,9 +12,7 @@ const numCards = document.getElementById('inputSuggestions');
 const baseURL = 'http://www.boredapi.com/api/activity/';
 const categories = document.getElementById('inputCategory');
 
-// getBoredAPI();
-
-// Gets more suggestions when the button is clicked
+// Gets new suggestions when the button is clicked
 boredBtn.addEventListener('click', (event) => {
 	getBoredAPI(categories.value);
 });
@@ -21,12 +26,23 @@ async function getBoredAPI(type) {
 			type = '';
 		}
 
+		// Form validation. Makes sure the category and amount of cards have been chosen
 		// Validates whether an amount of cards has been chosen
 		if (numCards.value == 'Choose...') {
 			numCards.setCustomValidity(
 				'Please choose how many suggestions you would like.'
 			);
 			numCards.reportValidity();
+			suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
+			boredBtn.style.visibility = 'visible'; // Hides button
+		} else {
+			categories.setCustomValidity('');
+		}
+
+		// Validates whether a category has been chosen
+		if (categories.value == 'Choose...') {
+			categories.setCustomValidity('Please choose a category.');
+			categories.reportValidity();
 			suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
 			boredBtn.style.visibility = 'visible'; // Hides button
 		} else {
@@ -50,16 +66,6 @@ async function getBoredAPI(type) {
 		console.log(
 			"Most likely error: category wasn't chosen. API fetch request probably failed as a result."
 		);
-
-		// Validates whether a category has been chosen
-		if (categories.value == 'Choose...') {
-			categories.setCustomValidity('Please choose a category.');
-			categories.reportValidity();
-			suggestions.innerHTML = ' '; // Resets page to blank so new suggestions can be filled in
-			boredBtn.style.visibility = 'visible'; // Hides button
-		} else {
-			categories.setCustomValidity('');
-		}
 	}
 }
 
@@ -250,6 +256,7 @@ function hoverCardLoop(index) {
 	});
 }
 
+// anime.js for hover animations
 function animateCard(el, scale, duration, elasticity) {
 	anime.remove(el);
 	anime({
@@ -269,8 +276,7 @@ function leaveCard(el) {
 }
 
 // Return to top button
-
-//Get the button
+// Get the button
 let mybutton = document.getElementById('btn-back-to-top');
 
 // When the user scrolls down 20px from the top of the document, show the button
