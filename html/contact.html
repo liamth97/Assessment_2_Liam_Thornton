@@ -83,7 +83,7 @@
 
 		<!-- Contact Form -->
 		<div class="container py-5">
-			<form class="row g-3" id="contactForm" action="">
+			<form class="row g-3 d-flex" id="contactForm" action="">
 				<!-- First Name -->
 				<div class="col-md-6">
 					<label for="inputFirstName" class="form-label">First Name</label>
@@ -102,7 +102,7 @@
 				</div>
 
 				<!-- Email -->
-				<div class="mb-3">
+				<div class="col-md-12">
 					<label for="inputEmail" class="form-label">Email address</label>
 					<input
 						type="email"
@@ -114,7 +114,7 @@
 				</div>
 
 				<!-- Text Area -->
-				<div class="mb-3">
+				<div class="col-md-12">
 					<label for="inputTextArea" class="form-label">Message</label>
 					<textarea
 						class="form-control"
@@ -125,9 +125,16 @@
 				</div>
 
 				<!-- Submit Button -->
-				<div class="col-12">
+				<div class="col-md-6">
 					<button type="submit" class="btn btn-primary" id="submitBtn">
 						Send Message
+					</button>
+				</div>
+
+				<!-- Save Form Button -->
+				<div class="col-md-6">
+					<button type="submit" class="btn btn-warning text-dark" id="btnSave">
+						Save Form
 					</button>
 				</div>
 			</form>
