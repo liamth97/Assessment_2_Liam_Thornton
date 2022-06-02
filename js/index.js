@@ -7,7 +7,7 @@
 
 // Get btn by ID
 const boredBtn = document.getElementById('boredBtn');
-const numCards = document.getElementById('inputSuggestions');
+const numCards = document.getElementById('inputAmount');
 
 const baseURL = 'http://www.boredapi.com/api/activity/';
 const categories = document.getElementById('inputCategory');
@@ -88,9 +88,7 @@ function createSuggestionCards(index) {
 	const card = document.createElement('div');
 	card.classList.add('card', 'border-dark', 'w-100', 'h-100');
 	card.setAttribute('id', String(index));
-	// card.setAttribute('id', 'suggestionCard');
 	col.appendChild(card);
-	// console.log(card);
 
 	// Create card body
 	const cardBody = document.createElement('div');
@@ -240,7 +238,6 @@ function cardParticipants(data, cardBody) {
 		personContainer.appendChild(personSolidFive);
 		personContainer.appendChild(peoplePlusSolid);
 	}
-	console.log(data);
 }
 
 // creates an array for all the cards with unique IDs to apply a hover animation to each one

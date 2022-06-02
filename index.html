@@ -82,6 +82,7 @@
 
 		<!-- Header -->
 		<header class="container py-5">
+			<!-- Head -->
 			<div class="d-flex align-items-center justify-content-center flex-column">
 				<h1 class="display-2">Cure your boredom.</h1>
 				<p class="h3 text-center fw-normal">
@@ -89,6 +90,8 @@
 					we'll give you some options!
 				</p>
 			</div>
+			<!-- Head End -->
+
 			<!-- Suggestion selection form -->
 			<form class="row g-3 d-flex pt-4 justify-content-center">
 				<!-- Selects the category -->
@@ -112,10 +115,10 @@
 				</div>
 				<!-- Selects how many suggestions to display -->
 				<div class="col-md-4 text-center">
-					<label for="inputSuggestions" class="form-label h3 fw-normal"
+					<label for="inputAmount" class="form-label h3 fw-normal"
 						>Amount</label
 					>
-					<select id="inputSuggestions" class="form-select">
+					<select id="inputAmount" class="form-select">
 						<option selected>Choose...</option>
 						<option>1</option>
 						<option>2</option>
@@ -141,7 +144,6 @@
 		<!-- Suggestion Cards -->
 		<div class="container pb-5" id="cardContainer">
 			<div class="row g-5 text-center" id="suggestions"></div>
-			<div class="d-flex justify-content-center"></div>
 		</div>
 
 		<!-- /Suggestion Cards/ -->
